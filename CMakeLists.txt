@@ -34,16 +34,16 @@ OPTION( EXIV2_ENABLE_BUILD_SAMPLES "Build the unit tests"                       
 OPTION( EXIV2_ENABLE_BUILD_PO      "Build translations files"                              OFF )
 OPTION( EXIV2_ENABLE_VIDEO         "Build video support into library"                      OFF )
 OPTION( EXIV2_ENABLE_WEBREADY      "Build webready support into library"                   OFF )
-IF (WIN32)
+if (WIN32)
     OPTION( EXIV2_ENABLE_DYNAMIC_RUNTIME  "Use dynamic runtime (used for static libs)"     OFF )
     OPTION( EXIV2_ENABLE_WIN_UNICODE   "Use Unicode paths (wstring) on Windows"            OFF )
     OPTION( EXIV2_ENABLE_CURL          "USE Libcurl for HttpIo"                            OFF )
     OPTION( EXIV2_ENABLE_SSH           "USE Libssh for SshIo"                              OFF )
-ELSE()
+else()
     OPTION( EXIV2_ENABLE_CURL          "USE Libcurl for HttpIo"                            ON  )
     OPTION( EXIV2_ENABLE_SSH           "USE Libssh for SshIo"                              ON  )
     SET ( EXIV2_ENABLE_DYNAMIC_RUNTIME OFF )
-ENDIF()
+endif()
 
 include(config/findDependencies.cmake)
 
@@ -57,29 +57,29 @@ if( MINGW OR UNIX )
                     -Woverloaded-virtual
                     -W
                    )
-    ENDIF()
+    endif()
 
-    IF ( CYGWIN OR (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 5.0))
+    if ( CYGWIN OR (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 5.0))
         ADD_DEFINITIONS( -std=gnu++98 ) # to support snprintf
-    ELSE()
+    else()
         ADD_DEFINITIONS( -std=c++98 )
-    ENDIF()
+    endif()
 
-ENDIF( MINGW OR UNIX )
+endif()
 
-IF( EXIV2_ENABLE_COMMERCIAL )
+if( EXIV2_ENABLE_COMMERCIAL )
     SET (EXIV2_ENABLE_LENSDATA OFF)
     SET (EXIV2_ENABLE_NLS OFF)
-ENDIF()
+endif()
 
 if( MSVC )
     ADD_DEFINITIONS(-DPSAPI_VERSION=1) # to be compatible with <= WinVista (#905)
     set(CMAKE_DEBUG_POSTFIX "d")
-endif( MSVC )
+endif()
 
-IF( EXIV2_ENABLE_XMP )
+if( EXIV2_ENABLE_XMP )
     SET( HAVE_XMP_TOOLKIT ON )
-ENDIF( EXIV2_ENABLE_XMP )
+endif()
 
 include( config/generateConfigFile.cmake )
 include_directories(${CMAKE_BINARY_DIR})  # Make the exv_conf.h file visible for the full project
@@ -91,13 +91,13 @@ if( EXIV2_ENABLE_XMP )
 endif()
 ADD_SUBDIRECTORY( src )
 
-IF( EXIV2_ENABLE_BUILD_SAMPLES )
+if( EXIV2_ENABLE_BUILD_SAMPLES )
     ADD_SUBDIRECTORY( samples )
-ENDIF( EXIV2_ENABLE_BUILD_SAMPLES )
+endif()
 
-IF( EXIV2_ENABLE_BUILD_PO )
+if( EXIV2_ENABLE_BUILD_PO )
     ADD_SUBDIRECTORY( po )
-ENDIF( EXIV2_ENABLE_BUILD_PO )
+endif()
 
 ##
 # tests
@@ -109,12 +109,12 @@ ADD_CUSTOM_TARGET(geotag-test COMMAND env EXIV2_BINDIR="${CMAKE_BINARY_DIR}"/bin
 # effectively does a make doc on the root directory
 # has to run 'make config' and './configure'
 # and copy bin/taglist to <exiv2dir>/bin/taglist for use by 'make doc'
-IF( MINGW OR UNIX OR APPLE)
+if( MINGW OR UNIX OR APPLE)
   ADD_CUSTOM_TARGET(doc
     WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/doc"
     COMMAND chmod +x ./cmake_doc.sh
     COMMAND ./cmake_doc.sh "${CMAKE_BINARY_DIR}"
   )
-ENDIF()
+endif()
 
 INCLUDE( config/printSummary.cmake )

@@ -155,28 +155,28 @@ if( EXIV2_ENABLE_WEBREADY )
         set( LIBEXIV2_SRC ${LIBEXIV2_SRC} ssh.cpp)
         set( LIBEXIV2_HDR ${LIBEXIV2_HDR} ${CMAKE_CURRENT_LIST_DIR}/../include/exiv2/ssh.hpp)
     endif()
-endif( EXIV2_ENABLE_WEBREADY )
+endif()
 
 ##
 # add png*.cpp files if PNG support requested
-IF( EXIV2_ENABLE_PNG )
-    IF( ZLIB_FOUND )
+if( EXIV2_ENABLE_PNG )
+    if( ZLIB_FOUND )
         SET( LIBEXIV2_SRC ${LIBEXIV2_SRC}
                           pngchunk.cpp
                           pngimage.cpp
            )
         set( LIBEXIV2_HDR ${LIBEXIV2_HDR} ${CMAKE_CURRENT_LIST_DIR}/../include/exiv2/pngimage.hpp )
-    ENDIF( ZLIB_FOUND )
-ENDIF( EXIV2_ENABLE_PNG )
+    endif()
+endif()
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 ##
 # msvn tuning
-IF( MSVC )
+if( MSVC )
     include(../CMake_msvc.txt)
     msvc_runtime_configure(${EXIV2_ENABLE_SHARED} ${EXIV2_ENABLE_DYNAMIC_RUNTIME})
-ENDIF( MSVC )
+endif()
 
 # ******************************************************************************
 # exiv2lib library
@@ -201,7 +201,7 @@ endif()
 
 if ( EXIV2_ENABLE_XMP )
     target_include_directories(exiv2lib PRIVATE ${CMAKE_SOURCE_DIR}/xmpsdk/include)
-endif ()
+endif()
 
 # TODO : We should not include include/exiv2 but only include !!!
 target_include_directories(exiv2lib PUBLIC
@@ -238,29 +238,29 @@ endif()
 
 if( EXIV2_ENABLE_XMP AND EXIV2_ENABLE_LIBXMP )
     TARGET_LINK_LIBRARIES( exiv2lib PUBLIC xmp )
-ENDIF()
+endif()
 
-IF( EXIV2_ENABLE_PNG )
-    IF( ZLIB_FOUND )
-        IF( MSVC )
+if( EXIV2_ENABLE_PNG )
+    if( ZLIB_FOUND )
+        if( MSVC )
             TARGET_LINK_LIBRARIES( exiv2lib PRIVATE optimized ${ZLIB_LIBRARIES} )
-        ELSE()
+        else()
             TARGET_LINK_LIBRARIES( exiv2lib PRIVATE ${ZLIB_LIBRARIES} )
-        ENDIF()
-    ENDIF()
-ENDIF()
+        endif()
+    endif()
+endif()
 
-IF( EXIV2_ENABLE_NLS )
+if( EXIV2_ENABLE_NLS )
     TARGET_LINK_LIBRARIES( exiv2lib PRIVATE  ${LIBINTL_LIBRARIES} )
-ENDIF( EXIV2_ENABLE_NLS )
+endif()
 
-IF( ICONV_FOUND )
+if( ICONV_FOUND )
     TARGET_LINK_LIBRARIES( exiv2lib PRIVATE  ${ICONV_LIBRARIES} )
-ENDIF( ICONV_FOUND )
+endif()
 
-IF (CYGWIN OR MINGW)
+if (CYGWIN OR MINGW)
     TARGET_LINK_LIBRARIES( exiv2lib PRIVATE  psapi ws2_32 )
-ENDIF(CYGWIN OR MINGW)
+endif()
 
 install(TARGETS exiv2lib
      RUNTIME DESTINATION bin

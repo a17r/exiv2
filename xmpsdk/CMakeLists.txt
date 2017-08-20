@@ -35,12 +35,12 @@ set(XMPSRC src/ExpatAdapter.cpp
            include/XMP_Version.h
 )
 
-FOREACH(_currentfile ${XMPSRC})
+foreach(_currentfile ${XMPSRC})
     # http://www.openguru.com/2009/04/cmake-detecting-platformoperating.html
-    IF(NOT MSVC AND NOT CYGWIN AND NOT MSYS AND NOT MINGW)
+    if(NOT MSVC AND NOT CYGWIN AND NOT MSYS AND NOT MINGW)
         SET_SOURCE_FILES_PROPERTIES(${_currentfile} PROPERTIES COMPILE_FLAGS "-fPIC")
-    ENDIF()
-ENDFOREACH()
+    endif()
+endforeach()
 
 if(NOT MSVC)
   # http://stackoverflow.com/questions/10046114/in-cmake-how-can-i-test-if-the-compiler-is-clang
