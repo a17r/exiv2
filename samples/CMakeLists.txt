@@ -8,7 +8,7 @@ if ( NOT MSVC )
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 endif()
 
-SET( SAMPLES addmoddel.cpp
+set( SAMPLES addmoddel.cpp
              convert-test.cpp
              easyaccess-test.cpp
              exifcomment.cpp

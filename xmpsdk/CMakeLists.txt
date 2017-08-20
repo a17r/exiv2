@@ -38,7 +38,7 @@ set(XMPSRC src/ExpatAdapter.cpp
 foreach(_currentfile ${XMPSRC})
     # http://www.openguru.com/2009/04/cmake-detecting-platformoperating.html
     if(NOT MSVC AND NOT CYGWIN AND NOT MSYS AND NOT MINGW)
-        SET_SOURCE_FILES_PROPERTIES(${_currentfile} PROPERTIES COMPILE_FLAGS "-fPIC")
+        set_source_files_properties(${_currentfile} PROPERTIES COMPILE_FLAGS "-fPIC")
     endif()
 endforeach()
 
