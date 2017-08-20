@@ -31,7 +31,7 @@
 #
 # ConfigureChecks for exiv2
 
-INCLUDE( GNUInstallDirs )
+include( GNUInstallDirs )
 
 if( EXIV2_ENABLE_SHARED )
     add_definitions( -DEXV_HAVE_DLL )

@@ -169,7 +169,7 @@ if( EXIV2_ENABLE_PNG )
     endif()
 endif()
 
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 ##
 # msvn tuning
