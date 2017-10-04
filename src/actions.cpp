@@ -2060,7 +2060,11 @@ namespace {
   /* This is the critical section object (statically allocated). */
   static pthread_mutex_t cs =  PTHREAD_RECURSIVE_MUTEX_INITIALIZER;
  #else
-  static pthread_mutex_t cs =  PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
+  #if defined(PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP)
+    static pthread_mutex_t cs =  PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
+   #else
+    static pthread_mutex_t cs =  PTHREAD_MUTEX_INITIALIZER;
+  #endif
  #endif
 #endif
 
