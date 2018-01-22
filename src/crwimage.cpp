@@ -131,15 +131,8 @@ namespace Exiv2 {
             throw Error(33);
         }
         clearMetadata();
-        // read all metadata into memory
-        // we should put this into clearMetadata(), however it breaks the test suite!
-        try {
-            std::ofstream devnull;
-            printStructure(devnull,kpsRecursive,0);
-        } catch (Exiv2::Error& /* e */) {
-            DataBuf file( (long) io().size());
-            io_->read(file.pData_,file.size_);
-        }
+        DataBuf file( (long) io().size());
+        io_->read(file.pData_,file.size_);
 
         CrwParser::decode(this, io_->mmap(), (uint32_t) io_->size());
 
