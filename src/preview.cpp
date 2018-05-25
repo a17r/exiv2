@@ -37,6 +37,7 @@ EXIV2_RCSID("@(#) $Id$")
 #include "preview.hpp"
 #include "futils.hpp"
 #include "safe_op.hpp"
+#include "enforce.hpp"
 
 #include "image.hpp"
 #include "cr2image.hpp"
@@ -813,6 +814,7 @@ namespace {
                     for (int i = 0; i < sizes.count(); i++) {
                         uint32_t offset = dataValue.toLong(i);
                         uint32_t size = sizes.toLong(i);
+                        enforce(idxBuf + size < size_, kerCorruptedMetadata);
                         if (size!=0 && Safe::add(offset, size) <= static_cast<uint32_t>(io.size()))
                             memcpy(&buf.pData_[idxBuf], base + offset, size);
                         idxBuf += size;
